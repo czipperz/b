@@ -18,11 +18,11 @@ case "$1" in
 '--help'|'-h')
 	echo "C is a program that allows you to jump between directories fast\n"
 	echo "USAGE (use one):"
-	echo "--add  or -a will allow you cache the current directory and save it with a given name"
-	echo "--edit or -e will open the cache of directories in $EDITOR"
+	echo "--add  or -a will allow you bookmark the current directory and save it with a given name"
+	echo "--edit or -e will open the bookmark of directories in $EDITOR"
 	echo "--help or -h to display this message"
-	echo "--list or -l will list the cache of directores"
-	echo "--path or -p will display the path of the link"
+	echo "--list or -l will list the bookmarks of directores"
+	echo "--path or -p will display the path of the bookmark"
 	echo "If the above are not found, it will attempt to jump to the directory"
 	;;
 *)
