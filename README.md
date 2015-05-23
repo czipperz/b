@@ -36,3 +36,7 @@ Jump to a bookmark (the dot makes it run the cd in the current terminal)
 Jump to a sub directory of a bookmark
 
     . c bookmark-name/path/to/final/directory
+
+You could add the following to your `$HOME/.bashrc` (or .zshrc) to shorten the command
+
+    alias c='. c'
