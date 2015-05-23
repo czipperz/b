@@ -30,13 +30,13 @@ case "$1" in
 	echo "Use \`. c bookmark-name\`"
 	;;
 *)
-	val=""
+	val=""   #the additional folders
 	call="$1"
-	if [ 1 -eq $(echo "$1" | grep -c '[^\\]/') ]; then
-		call=$(echo "$1" | sed -r "s/^([^\\]\/).*/\1/")
-		val=$(echo "$1" | sed -r "s///")
+	if [ 1 -eq $(echo "$1" | grep -c '[^\\]/') ]; then   #ex that pass: file/folder/sub , file/ss , file/ <- this still works
+		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
+		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
 	fi
-	cdto=$(cat $HOME/.c-list | egrep "^$1" | sed -r "s/^$1 //")
-	cd $cdto
+	cdto=$(cat $HOME/.c-list | egrep "^$call" | sed -r "s/^$call //")
+	cd $cdto/$val
 	;;
 esac
