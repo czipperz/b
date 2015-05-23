@@ -12,6 +12,9 @@ case "$1" in
 '--path'|'-p')
 	echo $(cat $HOME/.c-list | egrep "^$2" | sed -r "s/$2 //")
 	;;
+'--edit'|'-e')
+	$EDITOR $HOME/.c-list
+	;;
 *)
 	val=""
 	call="$1"
