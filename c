@@ -16,14 +16,18 @@ case "$1" in
 	$EDITOR $HOME/.c-list
 	;;
 '--help'|'-h')
-	echo "C is a program that allows you to jump between directories fast\n"
-	echo "USAGE (use one):"
-	echo "--add  or -a will allow you bookmark the current directory and save it with a given name"
-	echo "--edit or -e will open the bookmark of directories in $EDITOR"
-	echo "--help or -h to display this message"
-	echo "--list or -l will list the bookmarks of directores"
-	echo "--path or -p will display the path of the bookmark"
+	echo "C is a program that allows you to jump between directories fast"
+	echo "If it doesn't seem to work, you MUST use \`. c bookmark-name\` syntax"
+	echo
+	echo "USAGE \`c [option]\`:"
+	echo "  --add  or -a will allow you bookmark the current directory and save it with a given name"
+	echo "  --edit or -e will open the bookmark of directories in $EDITOR"
+	echo "  --help or -h to display this message"
+	echo "  --list or -l will list the bookmarks of directores"
+	echo "  --path or -p will display the path of the bookmark"
+	echo
 	echo "If the above are not found, it will attempt to jump to the directory"
+	echo "Use \`. c bookmark-name\`"
 	;;
 *)
 	val=""
@@ -34,6 +38,5 @@ case "$1" in
 	fi
 	cdto=$(cat $HOME/.c-list | egrep "^$1" | sed -r "s/^$1 //")
 	cd $cdto
-	echo "If this doesn't work, try \`. c $1\`"
 	;;
 esac
