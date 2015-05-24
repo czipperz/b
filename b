@@ -7,7 +7,9 @@ case "$1" in
 	if [ ! -f $HOME/.b-list ]; then
 		touch $HOME/.b-list
 	fi
-	cat $HOME/.b-list
+	while read i; do
+		echo "$(echo "$i" | awk '{ print $1 }')\t$(echo "$i" | awk '{ print $2 }')"
+	done < $HOME/.b-list
 	;;
 '--path'|'-p')
 	echo $(cat $HOME/.b-list | egrep "^$2" | awk '{ print $2 }')
