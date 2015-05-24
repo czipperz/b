@@ -1,13 +1,14 @@
 # Maintainer: Czipperz <czipperz@gmail.com>
-pkgname=b
+pkgname=b-git
 pkgver=1.0
 pkgrel=1
 pkgdesc='Allows for easy bookmark manipulation on the shell.'
 arch=("any")
+requires=("git")
 url='https://github.com/czipperz/b'
 
-_gitroot=git://github.com/czipperz/b.git
-_gitname=b
+_gitname="b"
+_gitroot="git://github.com/czipperz/${_gitname}.git"
 
 source=("$_gitroot")
 
