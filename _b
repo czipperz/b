@@ -1,0 +1,20 @@
+#compdef b
+typeset -A opt_args
+
+_grabB() {
+	compadd $(cat $HOME/.b-list | awk '{ print $1 }')
+}
+
+_b() {
+	'_grabB'
+	typeset -a _b_opts_commands
+	_b_opts_commands=(
+		'--add|-a[bookmark current directory with a given name]'
+		'--edit|-e[opens the bookmarks cache in $EDITOR]'
+		'--help|-h[shows help]'
+		'--list|-l[lists bookmarks of directories]'
+		'--path|-p[displays path of a given bookmark]'
+	)
+}
+
+_b "$@"
