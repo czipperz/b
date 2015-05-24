@@ -10,7 +10,7 @@ case "$1" in
 	cat $HOME/.b-list
 	;;
 '--path'|'-p')
-	echo $(cat $HOME/.b-list | egrep "^$2" | sed -r "s/$2 //")
+	echo $(cat $HOME/.b-list | egrep "^$2" | awk '{ print $2 }')
 	;;
 '--edit'|'-e')
 	$EDITOR $HOME/.b-list
@@ -36,7 +36,7 @@ case "$1" in
 		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
 		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
 	fi
-	cdto=$(cat $HOME/.b-list | egrep "^$call" | sed -r "s/^$call //")
+	cdto=$(cat $HOME/.b-list | egrep "^$call" | awk '{ print $2 }')
 	cd $cdto/$val
 	;;
 esac
