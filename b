@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $# = 0 ]]; then
+	echo "Need at least one args. Try \`--help\`"
+	exit 1
+fi
+
 case "$1" in
 '--add'|'-a')
 	echo "$2 $(pwd)" >> $HOME/.b-list ;;
