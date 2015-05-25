@@ -43,7 +43,10 @@ case "$1" in
 		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
 		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
 	fi
-	cdto=$(cat $HOME/.b-list | egrep "^$call" | awk '{ print $2 }')
+	cdto=$(cat $HOME/.b-list | egrep "^$call " | awk '{ print $2 }')
+	if [ ! -e "$cdto" ]; then
+		cdto="$1"
+	fi
 	cd $cdto/$val
 	;;
 esac
