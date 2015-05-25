@@ -1,6 +1,6 @@
 #B
 
-B as in bookmarks
+B as in bounce, bookmark, I don't care.
 
 This is a partial clone of [Jump](https://github.com/flavio/jump) that uses a shell script.
 
