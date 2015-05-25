@@ -3,6 +3,7 @@ typeset -A opt_args
 
 _grabB() {
 	compadd $(cat $HOME/.b-list | awk '{ print $1 }')
+	compadd $(ls)
 }
 
 _b() {
