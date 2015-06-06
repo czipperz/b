@@ -37,15 +37,19 @@ case "$1" in
 *)
 	val=""
 	call="$1"
-	if [ 1 -eq $(echo "$1" | grep -c '[^\\]/') ]; then
-		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
-		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
-	fi
-	cdto=$(cat $HOME/.b-list | grep -F "$call" | grep "^$call" | awk '{ print $2 }')
-	if [ -z "$cdto" ]; then
+	if [ 1 -eq $(echo "$1" | grep -c '^/') ]; then
 		cd $1
 	else
-		cd $cdto/$val
+		if [ 1 -eq $(echo "$1" | grep -c '[^\\]/') ]; then
+			call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
+			val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
+		fi
+		cdto=$(cat $HOME/.b-list | grep -F "$call" | grep "^$call" | awk '{ print $2 }')
+		if [ -z "$cdto" ]; then
+			cd $1
+		else
+			cd $cdto/$val
+		fi
 	fi
 	;;
 esac
