@@ -1,3 +1,13 @@
 #!/bin/bash
 sudo cp b /bin
 touch $HOME/.b-list
+if [ -e /bin/zsh ]; then
+	if [ -d $HOME/.oh-my-zsh ]; then
+		mkdir -p $HOME/.oh-my-zsh/functions
+		cp _b $HOME/.oh-my-zsh/functions
+	else
+		echo "Putting b autocomplete in $HOME/.zsh/functions"
+		mkdir -p $HOME/.zsh/functions
+		cp _b $HOME/.zsh/functions
+	fi
+fi
