@@ -44,7 +44,14 @@ case "$1" in
 		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
 		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
 	    fi
-	    cdto=$(cat $HOME/.b-list | grep -F "$call" | grep "^$call" | awk '{ print $2 }')
+	    lines="$(cat $HOME/.b-list | wc -l)"
+	    for (( i=$lines; i >= 1; i++ )); do
+		line="$(tail -n $i | head -n 1)"
+		if [ "$(echo "$line" | awk '{ print $1 }')" == "$call" ]; then
+		    cdto="$(echo "$line" | awk '{ print $2 }')"
+		    break
+		fi
+	    done
 	    if [ -z "$cdto" ]; then
 		cd $1
 	    else
