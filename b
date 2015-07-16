@@ -35,11 +35,11 @@ case "$1" in
 	echo "Use \`. b bookmark-name\`"
 	;;
     *)
-	val=""
-	call="$1"
 	if [ 1 -eq $(echo "$1" | grep -c '^/') ]; then
 	    cd $1
 	else
+	    call="$1"
+	    val=""
 	    if [ 1 -eq $(echo "$1" | grep -c '[^\\]/') ]; then
 		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
 		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
