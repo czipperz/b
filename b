@@ -7,7 +7,8 @@ fi
 
 case "$1" in
     --add|-a)
-	echo "$2 $(pwd)" >> $HOME/.b-list ;;
+	echo "$2 $(pwd)" >> $HOME/.b-list
+	;;
     --list|-l)
 	if [ ! -f $HOME/.b-list ]; then touch $HOME/.b-list; fi
 	while read i; do
