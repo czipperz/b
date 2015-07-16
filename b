@@ -27,7 +27,7 @@ case "$1" in
 	echo
 	echo "USAGE \`b [option]\`:"
 	echo "  --add  or -a will allow you bookmark the current directory and save it with a given name"
-	echo "  --edit or -e will open the bookmark of directories in $EDITOR"
+	echo "  --edit or -e will open the bookmark of directories in \`$EDITOR', your \$EDITOR"
 	echo "  --help or -h to display this message"
 	echo "  --list or -l will list the bookmarks of directores"
 	echo "  --path or -p will display the path of the bookmark"
