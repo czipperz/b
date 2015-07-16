@@ -6,21 +6,21 @@ if (( $# == 0 )); then
 fi
 
 case "$1" in
-    '--add'|'-a')
+    --add|-a)
 	echo "$2 $(pwd)" >> $HOME/.b-list ;;
-    '--list'|'-l')
+    --list|-l)
 	if [ ! -f $HOME/.b-list ]; then touch $HOME/.b-list; fi
 	while read i; do
 	    echo "$(echo "$i" | awk '{ print $1 }')\t$(echo "$i" | awk '{ print $2 }')"
 	done < $HOME/.b-list
 	;;
-    '--path'|'-p')
+    --path|-p)
 	echo $(cat $HOME/.b-list | egrep "^$2" | awk '{ print $2 }')
 	;;
-    '--edit'|'-e')
+    --edit|-e)
 	$EDITOR $HOME/.b-list
 	;;
-    '--help'|'-h')
+    --help|-h)
 	echo "B is a program that allows you to jump between directories fast"
 	echo "If it doesn't seem to work, you MUST use \`. b bookmark-name\` syntax"
 	echo
