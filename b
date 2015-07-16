@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if (( $# == 0 )); then
-    echo "Need at least one args. Try \`--help\`"
+    echo "Need at least one args. Try \`--help'"
     exit 1
 fi
 
