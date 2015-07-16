@@ -44,6 +44,7 @@ case "$1" in
 		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
 		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
 	    fi
+	    cdto="$1"
 	    lines="$(cat $HOME/.b-list | wc -l)"
 	    for (( i=$lines; i >= 1; i++ )); do
 		line="$(tail -n $i | head -n 1)"
@@ -52,11 +53,7 @@ case "$1" in
 		    break
 		fi
 	    done
-	    if [ -z "$cdto" ]; then
-		cd $1
-	    else
-		cd $cdto/$val
-	    fi
+	    cd $cdto/$val
 	fi
 	;;
 esac
