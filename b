@@ -1,15 +1,15 @@
 #!/bin/bash
 
-[[ $# = 0 ]] && {
+if (( $# == 0 )); then
 	echo "Need at least one args. Try \`--help\`"
 	exit 1
-}
+fi
 
 case "$1" in
 '--add'|'-a')
 	echo "$2 $(pwd)" >> $HOME/.b-list ;;
 '--list'|'-l')
-	[ -f $HOME/.b-list ] || touch $HOME/.b-list
+	if [ ! -f $HOME/.b-list ]; then touch $HOME/.b-list; fi
 	while read i; do
 		echo "$(echo "$i" | awk '{ print $1 }')\t$(echo "$i" | awk '{ print $2 }')"
 	done < $HOME/.b-list
