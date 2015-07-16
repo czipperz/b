@@ -53,7 +53,7 @@ case "$1" in
 		    break
 		fi
 	    done
-	    cd $cdto/$val
+	    cd "$cdto/$val"
 	fi
 	;;
 esac
