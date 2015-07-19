@@ -39,9 +39,9 @@ case "$1" in
 	else
 	    call="$1"
 	    val=""
-	    if [ 1 -eq $(echo "$1" | grep -c '[^\\]/') ]; then
-		call=$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')
-		val=$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')
+	    if [ 1 -eq "$(echo "$1" | grep -c '[^\\]/')" ]; then
+		call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
+		val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')"
 	    fi
 	    cdto="$1"
 	    lines="$(cat $HOME/.b-list | wc -l)"
