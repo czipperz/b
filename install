@@ -2,11 +2,13 @@
 sudo cp b /bin
 touch $HOME/.b-list
 if [ -e /bin/zsh ]; then
+    printf "ZSH is detected, will install b completions to "
     if [ -d $HOME/.oh-my-zsh ]; then
+	echo "\`$HOME/.oh-my-zsh'"
 	mkdir -p $HOME/.oh-my-zsh/functions
 	cp _b $HOME/.oh-my-zsh/functions
     else
-	echo "Putting b autocomplete in $HOME/.zsh/functions"
+	echo "\`$HOME/.zsh/functions'"
 	mkdir -p $HOME/.zsh/functions
 	cp _b $HOME/.zsh/functions
     fi
