@@ -1,9 +1,21 @@
 #compdef b
+
+local arguments curcontext="$curcontext"
 typeset -A opt_args
 
+arguments=(
+    {--add,-a}'[Add the current directory as a bookmark]'
+    {--edit,-e}'[Edit the bookmarks list in $EDITOR]'
+    {--help,-h}'[Get help]'
+    {--list,-l}'[List all known bookmarks and where they point]'
+    {--path,-p}'[Returns the path of the given bookmark]'
+)
+_arguments -s $arguments && {
+    compadd $(cat $HOME/.b-list | awk '{ print $1 }')
+    compadd $(ls)
+    compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
+    compadd $(echo /)
+    return 0
+}
 
-compadd $(cat $HOME/.b-list | awk '{ print $1 }')
-compadd $(ls)
-compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
-compadd $(echo /)
-
+return 1
