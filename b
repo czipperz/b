@@ -11,9 +11,7 @@ case "$1" in
 	;;
     --list|-l)
 	if [ ! -f "$HOME/.b-list" ]; then touch $HOME/.b-list; fi
-	while read i; do
-	    echo "$(echo "$i" | awk '{ print $1 }') = $(echo "$i" | awk '{ print $2 }')"
-	done < $HOME/.b-list
+	cat "$HOME/.b-list" | perl -pe 's/^([^ ]+) (.*)/$1 = $2/'
 	;;
     --path|-p)
 	echo $(cat "$HOME/.b-list" | egrep "^$2" | awk '{ print $2 }')
