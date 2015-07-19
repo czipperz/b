@@ -42,7 +42,7 @@ case "$1" in
 	    val=""
 	    if [ 1 -eq "$(echo "$1" | grep -c '[^\\]/')" ]; then
 		call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
-		val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')"
+		val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*\///')"
 	    fi
 	    lines="$(cat $HOME/.b-list | wc -l)"
 	    for (( i=$lines; i >= 1; i-- )); do
