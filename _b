@@ -4,6 +4,8 @@ typeset -A opt_args
 _grabB() {
 	compadd $(cat $HOME/.b-list | awk '{ print $1 }')
 	compadd $(ls)
+	compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
+	compadd $(echo /)
 }
 
 _b() {
