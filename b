@@ -37,22 +37,37 @@ case "$1" in
 	if [ 1 -eq $(echo "$1" | grep -c '^/') ]; then
 	    cd "$1"
 	else
+	    cdDone=''
 	    call="$1"
 	    val=""
 	    if [ 1 -eq "$(echo "$1" | grep -c '[^\\]/')" ]; then
 		call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
 		val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*//')"
 	    fi
-	    cdto="$1"
 	    lines="$(cat $HOME/.b-list | wc -l)"
-	    for (( i=$lines; i >= 1; i++ )); do
-		line="$(tail -n $i | head -n 1)"
-		if [ "$(echo "$line" | awk '{ print $1 }')" == "$call" ]; then
-		    cdto="$(echo "$line" | awk '{ print $2 }')"
+	    for (( i=$lines; i >= 1; i-- )); do
+		line="$(tail -n $i "$HOME/.b-list")"
+		if [ "$(echo "$line" | awk '{ print $1 }')" = "$call" ]; then
+		    cd "$(echo "$line" | awk '{ print $2 }')/$val"
+		    cdDone=' '
 		    break
 		fi
 	    done
-	    cd "$cdto/$val"
+	    if [ -z "$cdDone" ]; then
+		dest='..'
+		start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
+		for i in {${start}..2}; do
+		    if [ "$(pwd | cut -d/ -f$i)" = "$1" ]; then
+			cd "$dest/$val"
+			cdDone=' '
+			break
+		    fi
+		    dest="$dest/.."
+		done
+		if [ -z "$cdDone" ]; then
+		    cd "$call/$val"
+		fi
+	    fi
 	fi
 	;;
 esac
