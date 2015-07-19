@@ -28,16 +28,12 @@ case "$1" in
     --path|-p)
 	echo $(cat "$HOME/.b-list" | egrep "^$2" | awk '{ print $2 }')
 	;;
-    --edit|-e)
-	$EDITOR "$HOME/.b-list"
-	;;
     --help|-h)
 	echo "B is a program that allows you to jump between directories fast"
 	echo "If it doesn't seem to work, you MUST use \`. b bookmark-name\` syntax"
 	echo
 	echo "USAGE \`b [option]\`:"
 	echo "  --add  or -a will allow you bookmark the current directory and save it with a given name"
-	echo "  --edit or -e will open the bookmark of directories in \`$EDITOR', your \$EDITOR"
 	echo "  --help or -h to display this message"
 	echo "  --list or -l will list the bookmarks of directores"
 	echo "  --path or -p will display the path of the bookmark"
