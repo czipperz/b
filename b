@@ -7,10 +7,10 @@ fi
 
 case "$1" in
     --add|-a)
-	echo "$2 $(pwd)" >> $HOME/.b-list
+	echo "$2 $(pwd)" >> "$HOME/.b-list"
 	;;
     --list|-l)
-	if [ ! -f "$HOME/.b-list" ]; then touch $HOME/.b-list; fi
+	if [ ! -f "$HOME/.b-list" ]; then touch "$HOME/.b-list"; fi
 	cat "$HOME/.b-list" | perl -pe 's/^([^ ]+) (.*)/$1 = $2/'
 	;;
     --path|-p)
@@ -44,7 +44,7 @@ case "$1" in
 		call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
 		val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*\///')"
 	    fi
-	    lines="$(cat $HOME/.b-list | wc -l)"
+	    lines="$(cat "$HOME/.b-list" | wc -l)"
 	    for (( i=$lines; i >= 1; i-- )); do
 		line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
 		if [ "$(echo "$line" | awk '{ print $1 }')" = "$call" ]; then
