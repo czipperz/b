@@ -1,33 +1,9 @@
 #compdef b
 typeset -A opt_args
 
-_grabB() {
-	compadd $(cat $HOME/.b-list | awk '{ print $1 }')
-	compadd $(ls)
-	compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
-	compadd $(echo /)
-	compadd -- $(echo '--add')
-	compadd -- $(echo '-a')
-	compadd -- $(echo '--edit')
-	compadd -- $(echo '-e')
-	compadd -- $(echo '--help')
-	compadd -- $(echo '-h')
-	compadd -- $(echo '--list')
-	compadd -- $(echo '-l')
-	compadd -- $(echo '--path')
-	compadd -- $(echo '-p')
-}
 
-_b() {
-	'_grabB'
-	typeset -a _b_opts_commands
-	_b_opts_commands=(
-		'--add|-a[bookmark current directory with a given name]'
-		'--edit|-e[opens the bookmarks cache in $EDITOR]'
-		'--help|-h[shows help]'
-		'--list|-l[lists bookmarks of directories]'
-		'--path|-p[displays path of a given bookmark]'
-	)
-}
+compadd $(cat $HOME/.b-list | awk '{ print $1 }')
+compadd $(ls)
+compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
+compadd $(echo /)
 
-_b "$@"
