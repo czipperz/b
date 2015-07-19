@@ -6,6 +6,16 @@ _grabB() {
 	compadd $(ls)
 	compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
 	compadd $(echo /)
+	compadd -- $(echo '--add')
+	compadd -- $(echo '-a')
+	compadd -- $(echo '--edit')
+	compadd -- $(echo '-e')
+	compadd -- $(echo '--help')
+	compadd -- $(echo '-h')
+	compadd -- $(echo '--list')
+	compadd -- $(echo '-l')
+	compadd -- $(echo '--path')
+	compadd -- $(echo '-p')
 }
 
 _b() {
