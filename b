@@ -45,35 +45,35 @@ case "$1" in
 	if [ 1 -eq $(echo "$1" | grep -c '^/') ]; then
 	    cd "$1"
 	else
-	    cdDone=''
-	    call="$1"
-	    val=""
+	    _b_cdDone=''
+	    _b_call="$1"
+	    _b_val=""
 	    if [ 1 -eq "$(echo "$1" | grep -c '[^\\]/')" ]; then
-		call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
-		val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*\///')"
+		_b_call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
+		_b_val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*\///')"
 	    fi
-	    lines="$(cat "$HOME/.b-list" | wc -l)"
-	    for (( i=$lines; i >= 1; i-- )); do
-		line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
-		if [ "$(echo "$line" | awk '{ print $1 }')" = "$call" ]; then
-		    cd "$(echo "$line" | awk '{ print $2 }')/$val"
-		    cdDone=' '
+	    _b_lines="$(cat "$HOME/.b-list" | wc -l)"
+	    for (( i=$_b_lines; i >= 1; i-- )); do
+		_b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
+		if [ "$(echo "$_b_line" | awk '{ print $1 }')" = "$call" ]; then
+		    cd "$(echo "$_b_line" | awk '{ print $2 }')/$_b_val"
+		    _b_cdDone=' '
 		    break
 		fi
 	    done
-	    if [ -z "$cdDone" ]; then
-		dest='..'
-		start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
-		for i in {${start}..2}; do
+	    if [ -z "$_b_cdDone" ]; then
+		_b_dest='..'
+		_b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
+		for i in {${_b_start}..2}; do
 		    if [ "$(pwd | cut -d/ -f$i)" = "$1" ]; then
-			cd "$dest/$val"
-			cdDone=' '
+			cd "$_b_dest/$_b_val"
+			_b_cdDone=' '
 			break
 		    fi
-		    dest="$dest/.."
+		    _b_dest="$_b_dest/.."
 		done
-		if [ -z "$cdDone" ]; then
-		    cd "$call/$val"
+		if [ -z "$_b_cdDone" ]; then
+		    cd "$_b_call/$_b_val"
 		fi
 	    fi
 	fi

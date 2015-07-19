@@ -11,11 +11,6 @@ Bookmark something using
     $ b --add bookmark-name
     $ b -a bookmark-name
 
-Edit previous bookmarks or add manual ones using
-
-    $ b --edit
-    $ b -e
-
 Get help
 
     $ b --help
@@ -57,6 +52,13 @@ Use b to go down directories (note that this has higher priority than using norm
 You could add the following alias to shorten the command
 
     alias b='. b'
+
+##Priorities
+
+As you have seen above, `b` can do many different things.
+* It can bounce to a bookmark or its subdirectory
+* It can bounce to a head directory (like a named `../`)
+* It can bounce just like `cd`!
 
 ##Installation
 
