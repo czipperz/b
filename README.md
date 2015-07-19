@@ -1,6 +1,6 @@
-#B
+#b
 
-B as in bounce, bookmark, I don't care.
+B is a powerful way to bookmark and cd all at once!
 
 This is a partial clone of [Jump](https://github.com/flavio/jump) that uses a shell script.
 
@@ -43,7 +43,7 @@ Display the path of a bookmark
     $ b --path bookmark-name
     $ b -p bookmark-name
 
-Jump to a bookmark (the dot makes it run the cd in the current terminal)
+Jump to a bookmark (the dot makes it run the script in the current terminal)
 
     $ . b bookmark-name
 
