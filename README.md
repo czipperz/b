@@ -39,7 +39,22 @@ Jump to a sub directory of a bookmark
 
     $ . b bookmark-name/path/to/final/directory
 
-You could add the following to your `$HOME/.bashrc` (or .zshrc) to shorten the command
+Use b like `cd`!
+
+    $ . b /home/czipperz/dotfiles
+
+Use b to go down directories (note that this has higher priority than using normal `cd`)
+
+	DIRECTORY               COMMANDS AND OUTPUT
+	~                       $ pwd
+	                        /home/czipperz
+	~/tests/czipperz/stuff  $ . b czipperz
+	~/tests/czipperz        $ . b czipperz
+	~                       $ . b tests
+	~/tests                 $ . b czipperz
+	~                       $
+
+You could add the following alias to shorten the command
 
     alias b='. b'
 
