@@ -9,6 +9,18 @@ case "$1" in
     --add|-a)
 	echo "$2 $(pwd)" >> "$HOME/.b-list"
 	;;
+    --remove|-r)
+	echo "This could cause loss of memory..."
+	_b_lines="$(cat "$HOME/.b-list" | wc -l)"
+	for (( i=$_b_lines; i >= 1; i-- )); do
+	    _b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
+	    if [ "$(echo "$_b_line" | awk '{ print $1 }')" != "$2" ]; then
+		echo "$_b_line" >> "/tmp/.b-$$"
+	    fi
+	done
+	mv "/tmp/.b-$$" "$HOME/.b-list"
+	echo "Done"
+	;;
     --list|-l)
 	if [ ! -f "$HOME/.b-list" ]; then touch "$HOME/.b-list"; fi
 	cat "$HOME/.b-list" | perl -pe 's/^([^ ]+) (.*)/$1 = $2/'
