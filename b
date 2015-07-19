@@ -46,7 +46,7 @@ case "$1" in
 	    fi
 	    lines="$(cat $HOME/.b-list | wc -l)"
 	    for (( i=$lines; i >= 1; i-- )); do
-		line="$(tail -n $i "$HOME/.b-list")"
+		line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
 		if [ "$(echo "$line" | awk '{ print $1 }')" = "$call" ]; then
 		    cd "$(echo "$line" | awk '{ print $2 }')/$val"
 		    cdDone=' '
