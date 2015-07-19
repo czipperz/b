@@ -10,16 +10,16 @@ case "$1" in
 	echo "$2 $(pwd)" >> $HOME/.b-list
 	;;
     --list|-l)
-	if [ ! -f $HOME/.b-list ]; then touch $HOME/.b-list; fi
+	if [ ! -f "$HOME/.b-list" ]; then touch $HOME/.b-list; fi
 	while read i; do
 	    echo "$(echo "$i" | awk '{ print $1 }') = $(echo "$i" | awk '{ print $2 }')"
 	done < $HOME/.b-list
 	;;
     --path|-p)
-	echo $(cat $HOME/.b-list | egrep "^$2" | awk '{ print $2 }')
+	echo $(cat "$HOME/.b-list" | egrep "^$2" | awk '{ print $2 }')
 	;;
     --edit|-e)
-	$EDITOR $HOME/.b-list
+	$EDITOR "$HOME/.b-list"
 	;;
     --help|-h)
 	echo "B is a program that allows you to jump between directories fast"
@@ -37,7 +37,7 @@ case "$1" in
 	;;
     *)
 	if [ 1 -eq $(echo "$1" | grep -c '^/') ]; then
-	    cd $1
+	    cd "$1"
 	else
 	    call="$1"
 	    val=""
