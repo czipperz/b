@@ -72,8 +72,8 @@ case "$1" in
 			echo "Only the base directory was found, will execute \`cd \"$_b_call\""
 			cd "$_b_call"
 		    fi
-		else
 
+		else
 		    _b_dest='..'
 		    _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
 		    for i in {${_b_start}..2}; do
