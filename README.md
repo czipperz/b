@@ -1,6 +1,6 @@
 #b
 
-B is a powerful way to bookmark and cd all at once!
+`b` is a powerful way to bookmark and cd all at once!
 
 Installation is at the end. Hit `<END>` to get there fast
 
