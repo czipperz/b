@@ -2,8 +2,6 @@
 
 `b` is a powerful way to bookmark and cd all at once!
 
-<img src="http://i.imgur.com/ChUcEm0.gif" alt="GIF:http://i.imgur.com/ChUcEm0.gif" width=1008 height=924>
-
 Installation is at the end. Hit `<END>` to get there fast
 
 ##Usage
