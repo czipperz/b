@@ -56,7 +56,7 @@ case "$1" in
 	    _b_lines="$(cat "$HOME/.b-list" | wc -l)"
 	    for (( i=$_b_lines; i >= 1; i-- )); do
 		_b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
-		if [ "$(echo "$_b_line" | awk '{ print $1 }')" = "$call" ]; then
+		if [ "$(echo "$_b_line" | awk '{ print $1 }')" = "$_b_call" ]; then
 		    cd "$(echo "$_b_line" | awk '{ print $2 }')/$_b_val"
 		    _b_cdDone=' '
 		    break
