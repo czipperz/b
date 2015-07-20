@@ -11,6 +11,11 @@ Bookmark something using
     $ b --add bookmark-name
     $ b -a bookmark-name
 
+Remove a bookmark using
+
+    $ b --remove bookmark-name
+    $ b -r bookmark-name
+
 Get help
 
     $ b --help
