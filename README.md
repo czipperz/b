@@ -60,10 +60,10 @@ You could add the following alias to shorten the command
 
 ##Priorities
 
-As you have seen above, `b` can do many different things.
-* It can bounce to a bookmark or its subdirectory
-* It can bounce to a head directory (like a named `../`)
-* It can bounce just like `cd`!
+As you have seen above, `b` can do many different things. Here is the order in which it decides what to do:
+1. It will try to bounce to a bookmark or a bookmark's subdirectory
+2. It will try to bounce to a head directory (like a named `../`)
+3. It will then resort to `cd`ing.
 
 ##Installation
 
