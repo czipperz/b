@@ -16,6 +16,7 @@ _arguments -s $arguments && {
     compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
     compadd $(echo /)
     compadd $(ls /)
+    compadd $(ls $HOME)
     return 0
 }
 
