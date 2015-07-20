@@ -64,21 +64,31 @@ case "$1" in
 	    done
 
 	    if [ -z "$_b_cdDone" ]; then
-		_b_dest='..'
-		_b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
-		for i in {${_b_start}..2}; do
-		    if [ "$(pwd | cut -d/ -f$i)" = "$1" ]; then
-			cd "$_b_dest/$_b_val"
+		if [ -d "$_b_call" ]; then
+		    if [ -d "$_b_call/$_b_val" ]; then
+			cd "$_b_call/$_b_val"
 			_b_cdDone=' '
-			break
+		    else
+			echo "Only the base directory was found, will execute \`cd \"$_b_call\""
+			cd "$_b_call"
 		    fi
-		    _b_dest="$_b_dest/.."
-		done
+		else
 
-		if [ -z "$_b_cdDone" ]; then
-		    cd "$_b_call/$_b_val"
+		    _b_dest='..'
+		    _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
+		    for i in {${_b_start}..2}; do
+			if [ "$(pwd | cut -d/ -f$i)" = "$1" ]; then
+			    cd "$_b_dest/$_b_val"
+			    _b_cdDone=' '
+			    break
+			fi
+			_b_dest="$_b_dest/.."
+		    done
 		fi
 	    fi
+	fi
+	if [ -z "$_b_cdDone" ]; then
+	    exit 1
 	fi
 	;;
 esac
