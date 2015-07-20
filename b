@@ -57,7 +57,15 @@ case "$1" in
 	    for (( i=$_b_lines; i >= 1; i-- )); do
 		_b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
 		if [ "$(echo "$_b_line" | awk '{ print $1 }')" = "$_b_call" ]; then
-		    cd "$(echo "$_b_line" | awk '{ print $2 }')/$_b_val"
+                    cd "$(echo "$_b_line" | awk '{ print $2 }')"
+                    if [ ! -z "$_b_val" ]; then
+                        if [ -d "$_b_val" ]; then
+                            cd "$_b_val"
+                        else
+                            echo "Only the base directory of the bookmark \`$(echo "$_b_line" | awk '{ print $1 }')\` was found,
+ will only execute \`cd \"$(echo "$_b_line" | awk '{ print $2 }')\"\`."
+                        fi
+                    fi
 		    _b_cdDone=' '
 		    break
 		fi
