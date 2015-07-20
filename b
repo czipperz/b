@@ -87,8 +87,5 @@ case "$1" in
 		fi
 	    fi
 	fi
-	if [ -z "$_b_cdDone" ]; then
-	    exit 1
-	fi
 	;;
 esac
