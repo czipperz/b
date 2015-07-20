@@ -52,6 +52,7 @@ case "$1" in
 		_b_call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
 		_b_val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*\///')"
 	    fi
+
 	    _b_lines="$(cat "$HOME/.b-list" | wc -l)"
 	    for (( i=$_b_lines; i >= 1; i-- )); do
 		_b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
@@ -61,6 +62,7 @@ case "$1" in
 		    break
 		fi
 	    done
+
 	    if [ -z "$_b_cdDone" ]; then
 		_b_dest='..'
 		_b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
@@ -72,6 +74,7 @@ case "$1" in
 		    fi
 		    _b_dest="$_b_dest/.."
 		done
+
 		if [ -z "$_b_cdDone" ]; then
 		    cd "$_b_call/$_b_val"
 		fi
