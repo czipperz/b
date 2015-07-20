@@ -75,11 +75,11 @@ case "$1" in
 		if [ -d "$_b_call" ]; then
 		    if [ -d "$_b_call/$_b_val" ]; then
 			cd "$_b_call/$_b_val"
-			_b_cdDone=' '
 		    else
 			echo "Only the base directory was found, will execute \`cd \"$_b_call\"\`"
 			cd "$_b_call"
 		    fi
+		    _b_cdDone=' '
 
 		else
 		    _b_dest='..'
