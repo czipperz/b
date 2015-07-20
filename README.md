@@ -46,13 +46,13 @@ Use b like `cd`!
 Use b to go down directories (note that this has higher priority than using normal `cd`)
 
 	DIRECTORY               COMMANDS AND OUTPUT
-	~                       $ pwd
-	                        /home/czipperz
+	~/tests/czipperz/stuff  $ pwd
+	                        /home/czipperz/tests/czipperz/stuff
 	~/tests/czipperz/stuff  $ . b czipperz
 	~/tests/czipperz        $ . b czipperz
 	~                       $ . b tests
 	~/tests                 $ . b czipperz
-	~                       $
+	~/tests/czipperz        $ 
 
 You could add the following alias to shorten the command
 
