@@ -86,7 +86,7 @@ case "$1" in
 		    _b_dest='..'
 		    _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
 		    for i in {${_b_start}..2}; do
-			if [ "$(pwd | cut -d/ -f$i)" = "$1" ]; then
+			if [ "$(pwd | cut -d/ -f$i 2>/dev/null)" = "$1" ]; then
 			    cd "$_b_dest/$_b_val"
 			    _b_cdDone=' '
 			    break
