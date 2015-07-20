@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if (( $# == 0 )); then
-    echo "Need at least one args. Try \`--help'"
+    cd
 else
     case "$1" in
         --add|-a)
