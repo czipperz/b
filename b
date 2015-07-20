@@ -69,7 +69,7 @@ case "$1" in
 			cd "$_b_call/$_b_val"
 			_b_cdDone=' '
 		    else
-			echo "Only the base directory was found, will execute \`cd \"$_b_call\""
+			echo "Only the base directory was found, will execute \`cd \"$_b_call\"\`"
 			cd "$_b_call"
 		    fi
 
