@@ -94,7 +94,32 @@ case "$1" in
 			_b_dest="$_b_dest/.."
 		    done
 		fi
+                if [ -z "$_b_cdDone" ]; then
+                    if [ -d "$HOME/$_b_call" ]; then
+                        if [ -d "$HOME/$_b_call/$_b_val" ]; then
+                            cd "$HOME/$_b_call/$_b_val"
+                        else
+                            echo "Only the base directory of this "home" cd was found,
+ will only execute \`cd \"$HOME/$_b_call\"\`."
+                            cd "$HOME/$_b_call"
+                        fi
+                        _b_cdDone=' '
+                    elif [ -d "/$_b_call" ]; then
+                        if [ -d "/$_b_call/$_b_val" ]; then
+                            cd "/$_b_call/$_b_val"
+                        else
+                            echo "Only the base directory of this "home" cd was found,
+ will only execute \`cd \"$HOME/$_b_call\"\`."
+                            cd "/$_b_call"
+                        fi
+                        _b_cdDone=' '
+                    fi
+                fi
 	    fi
+            if [ -z "$_b_cdDone" ]; then
+                echo "Could not find a suitable solution to bounce to
+ (this has been not been detected as a bookmark, super, or normal cd)."
+            fi
 	fi
 	;;
 esac

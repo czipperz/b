@@ -63,8 +63,10 @@ You could add the following alias to shorten the command
 As you have seen above, `b` can do many different things. Here is the order in which it decides what to do:
 
 1. It will try to bounce to a bookmark or a bookmark's subdirectory
-2. It will try to `cd` to the directory specified (if it exists)
+2. It will try to `cd` from the current directory (basically any in `ls -a`)
+to the directory specified (if it exists)
 3. It will then resort to bounce to a head directory (like a named `../`)
+4. If none of these work, then it will resort to querying `$HOME` then `/`
 
 ##Installation
 
