@@ -29,17 +29,24 @@ case "$1" in
 	echo $(cat "$HOME/.b-list" | egrep "^$2" | awk '{ print $2 }')
 	;;
     --help|-h)
-	echo "B is a program that allows you to jump between directories fast"
+	echo "\`b\` is a powerful way to bookmark and cd all at once!"
 	echo "If it doesn't seem to work, you MUST use \`. b bookmark-name\` syntax"
+        echo "Note that all variables used have a prefix of \`_b_\`"
 	echo
 	echo "USAGE \`b [option]\`:"
-	echo "  --add  or -a will allow you bookmark the current directory and save it with a given name"
-	echo "  --help or -h to display this message"
-	echo "  --list or -l will list the bookmarks of directores"
-	echo "  --path or -p will display the path of the bookmark"
+	echo "  --add     -a  -- add a bookmark at current directory with a given name"
+	echo "  --help    -h  -- display this message"
+	echo "  --list    -l  -- list the bookmarks and where they point"
+	echo "  --path    -p  -- display the path of a given bookmark"
+        echo "  --remove  -r  -- remove a bookmark"
 	echo
-	echo "If the above are not found, it will attempt to jump to the directory"
-	echo "Use \`. b bookmark-name\`"
+	echo "If the above options are not used, it will attempt to jump to the directory given"
+        echo "It will search for a directory to jump to in this order:"
+        echo "1. Bookmarks"
+        echo "2. Something from \`pwd\` (think \`ls -a\`)"
+        echo "3. CD toward \`/\` by named \`../\`s"
+        echo "4. Something from \`$HOME\`"
+        echo "5. Something from \`/\`"
 	;;
     *)
 	if [ 1 -eq $(echo "$1" | grep -c '^/') ]; then
@@ -99,7 +106,7 @@ case "$1" in
                         if [ -d "$HOME/$_b_call/$_b_val" ]; then
                             cd "$HOME/$_b_call/$_b_val"
                         else
-                            echo "Only the base directory of this "home" cd was found,
+                            echo "Only the base directory of this \"home\" cd was found,
  will only execute \`cd \"$HOME/$_b_call\"\`."
                             cd "$HOME/$_b_call"
                         fi
@@ -108,8 +115,8 @@ case "$1" in
                         if [ -d "/$_b_call/$_b_val" ]; then
                             cd "/$_b_call/$_b_val"
                         else
-                            echo "Only the base directory of this "home" cd was found,
- will only execute \`cd \"$HOME/$_b_call\"\`."
+                            echo "Only the base directory of this \"/\" cd was found,
+ will only execute \`cd \"/$_b_call\"\`."
                             cd "/$_b_call"
                         fi
                         _b_cdDone=' '
