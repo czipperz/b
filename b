@@ -47,7 +47,7 @@ else
             echo "5. Something from \`/\`"
 	    ;;
         *)
-	    if [ 1 -eq $(echo "$1" | grep -c '^/') ]; then
+	    if [ 1 -eq $(echo "$1" | grep -c '^/') -o "$1" = '-' ]; then
 	        cd "$1"
 	    else
 	        _b_cdDone=''
