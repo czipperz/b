@@ -24,7 +24,7 @@ else
 	    cat "$HOME/.b-list" | perl -pe 's/^([^ ]+) (.*)/$1 = $2/'
 	    ;;
         --path|-p)
-	    echo $(cat "$HOME/.b-list" | egrep "^$2" | awk '{ print $2 }')
+	    cat "$HOME/.b-list" | egrep "^$2" | awk '{ print $2 }'
 	    ;;
         --help|-h)
 	    echo "\`b\` is a powerful way to bookmark and cd all at once!"
