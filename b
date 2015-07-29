@@ -81,8 +81,8 @@ else
                         if [ -d "$_b_call/$_b_val" ]; then
                             cd "$_b_call/$_b_val"
                         else
-                            echo "Only the base directory of this raw cd was found,
- will execute \`cd \"$_b_call\"\`"
+                            echo -n "Only the base directory of this raw cd was found,"
+                            echo " will execute \`cd \"$_b_call\"\`"
                             cd "$_b_call"
                         fi
                         _b_cdDone=' '
@@ -104,8 +104,8 @@ else
                             if [ -d "$HOME/$_b_call/$_b_val" ]; then
                                 cd "$HOME/$_b_call/$_b_val"
                             else
-                                echo "Only the base directory of this \"home\" cd was found,
- will only execute \`cd \"$HOME/$_b_call\"\`."
+                                echo -n "Only the base directory of this \"home\" cd was found,"
+                                echo " will only execute \`cd \"$HOME/$_b_call\"\`."
                                 cd "$HOME/$_b_call"
                             fi
                             _b_cdDone=' '
@@ -113,8 +113,8 @@ else
                             if [ -d "/$_b_call/$_b_val" ]; then
                                 cd "/$_b_call/$_b_val"
                             else
-                                echo "Only the base directory of this \"/\" cd was found,
- will only execute \`cd \"/$_b_call\"\`."
+                                echo -n "Only the base directory of this \"/\" cd was found,"
+                                echo " will only execute \`cd \"/$_b_call\"\`."
                                 cd "/$_b_call"
                             fi
                             _b_cdDone=' '
@@ -122,8 +122,8 @@ else
                     fi
                 fi
                 if [ -z "$_b_cdDone" ]; then
-                    echo "Could not find a suitable solution to bounce to
- (this has been not been detected as a bookmark, super, or normal cd)."
+                    echo -n "Could not find a suitable solution to bounce to"
+                    echo " (this has been not been detected as a bookmark, super, or normal cd)."
                 fi
             fi
             ;;
