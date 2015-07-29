@@ -54,8 +54,8 @@ else
                 _b_call="$1"
                 _b_val=""
                 if [ 1 -eq "$(echo "$1" | grep -c '[^\\]/')" ]; then
-                    _b_call="$(echo "$1" | perl -pe 's/^(((?<=\\)\/|[^\/])*).*/$1/')"
-                    _b_val="$(echo "$1" | perl -pe 's/^((?<=\\)\/|[^\/])*\///')"
+                    _b_call="$(echo "$1" | perl -pe 's;^(((?<=\\)/|[^/])*).*;$1;')"
+                    _b_val="$(echo "$1" | perl -pe  's;^((?<=\\)/|[^/])*/;;')"
                 fi
                 
                 _b_lines="$(cat "$HOME/.b-list" | wc -l)"
