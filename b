@@ -75,49 +75,56 @@ else
                         break
                     fi
                 done
-                
                 if [ -z "$_b_cdDone" ]; then
-                    if [ -d "$_b_call" ]; then
-                        if [ -d "$_b_call/$_b_val" ]; then
-                            cd "$_b_call/$_b_val"
-                        else
-                            echo -n "Only the base directory of this raw cd was found,"
-                            echo " will execute \`cd \"$_b_call\"\`"
-                            cd "$_b_call"
-                        fi
-                        _b_cdDone=' '
-                        
-                    else
-                        _b_dest='..'
-                        _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
-                        for i in {${_b_start}..2}; do
-                            if [ "$(pwd | cut -d/ -f$i 2>/dev/null)" = "$1" ]; then
-                                cd "$_b_dest/$_b_val"
-                                _b_cdDone=' '
-                                break
-                            fi
-                            _b_dest="$_b_dest/.."
+                    if [ 1 -eq "$(echo "$_b_call" | egrep -c '^\.\.+$')" ]; then
+                        _b_dirFix="$(echo "$_b_call" | perl -pe 's/^.//' | wc -c)"
+                        for (( _b_index=1; _b_index<$_b_dirFix; _b_index++ )); do
+                            cd ..
                         done
-                    fi
-                    if [ -z "$_b_cdDone" ]; then
-                        if [ -d "$HOME/$_b_call" ]; then
-                            if [ -d "$HOME/$_b_call/$_b_val" ]; then
-                                cd "$HOME/$_b_call/$_b_val"
+                        _b_cdDone=' '
+                    else
+                        if [ -d "$_b_call" ]; then
+                            if [ -d "$_b_call/$_b_val" ]; then
+                                cd "$_b_call/$_b_val"
                             else
-                                echo -n "Only the base directory of this \"home\" cd was found,"
-                                echo " will only execute \`cd \"$HOME/$_b_call\"\`."
-                                cd "$HOME/$_b_call"
+                                echo -n "Only the base directory of this raw cd was found,"
+                                echo " will execute \`cd \"$_b_call\"\`"
+                                cd "$_b_call"
                             fi
                             _b_cdDone=' '
-                        elif [ -d "/$_b_call" ]; then
-                            if [ -d "/$_b_call/$_b_val" ]; then
-                                cd "/$_b_call/$_b_val"
-                            else
-                                echo -n "Only the base directory of this \"/\" cd was found,"
-                                echo " will only execute \`cd \"/$_b_call\"\`."
-                                cd "/$_b_call"
+                            
+                        else
+                            _b_dest='..'
+                            _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
+                            for i in {${_b_start}..2}; do
+                                if [ "$(pwd | cut -d/ -f$i 2>/dev/null)" = "$1" ]; then
+                                    cd "$_b_dest/$_b_val"
+                                    _b_cdDone=' '
+                                    break
+                                fi
+                                _b_dest="$_b_dest/.."
+                            done
+                        fi
+                        if [ -z "$_b_cdDone" ]; then
+                            if [ -d "$HOME/$_b_call" ]; then
+                                if [ -d "$HOME/$_b_call/$_b_val" ]; then
+                                    cd "$HOME/$_b_call/$_b_val"
+                                else
+                                    echo -n "Only the base directory of this \"home\" cd was found,"
+                                    echo " will only execute \`cd \"$HOME/$_b_call\"\`."
+                                    cd "$HOME/$_b_call"
+                                fi
+                                _b_cdDone=' '
+                            elif [ -d "/$_b_call" ]; then
+                                if [ -d "/$_b_call/$_b_val" ]; then
+                                    cd "/$_b_call/$_b_val"
+                                else
+                                    echo -n "Only the base directory of this \"/\" cd was found,"
+                                    echo " will only execute \`cd \"/$_b_call\"\`."
+                                    cd "/$_b_call"
+                                fi
+                                _b_cdDone=' '
                             fi
-                            _b_cdDone=' '
                         fi
                     fi
                 fi

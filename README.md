@@ -43,7 +43,7 @@ Use b like `cd`!
 
     $ . b /home/czipperz/dotfiles
 
-Use b to go down directories (note that this has lower priority than using normal `cd`)
+Use b to go down directories (note that this has lower priority than using normal `cd`), using named directories or `......` patterns
 
     DIRECTORY               COMMANDS AND OUTPUT
     ~/tests/czipperz/stuff  $ pwd
@@ -52,7 +52,8 @@ Use b to go down directories (note that this has lower priority than using norma
     ~/tests/czipperz        $ . b czipperz
     ~                       $ . b tests
     ~/tests                 $ . b czipperz
-    ~/tests/czipperz        $ 
+    ~/tests/czipperz        $ . b ....
+    /home                   $
 
 You could add the following alias to shorten the command
 
