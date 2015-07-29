@@ -43,7 +43,7 @@ Use b like `cd`!
 
     $ . b /home/czipperz/dotfiles
 
-Use b to go down directories (note that this has higher priority than using normal `cd`)
+Use b to go down directories (note that this has lower priority than using normal `cd`)
 
     DIRECTORY               COMMANDS AND OUTPUT
     ~/tests/czipperz/stuff  $ pwd

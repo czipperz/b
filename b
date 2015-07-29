@@ -67,8 +67,8 @@ else
                             if [ -d "$_b_val" ]; then
                                 cd "$_b_val"
                             else
-                                echo "Only the base directory of the bookmark \`$(echo "$_b_line" | awk '{ print $1 }')\` was found,
- will only execute \`cd \"$(echo "$_b_line" | awk '{ print $2 }')\"\`."
+                                echo -n "Only the base directory of the bookmark \`$(echo "$_b_line" | awk '{ print $1 }')\`"
+                                echo "was found, will only execute \`cd \"$(echo "$_b_line" | awk '{ print $2 }')\"\`."
                             fi
                         fi
                         _b_cdDone=' '
