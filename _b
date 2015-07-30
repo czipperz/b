@@ -14,11 +14,11 @@ arguments=(
 )
 _arguments -s $arguments && {
     compadd $(cat $HOME/.b-list | awk '{ print $1 }')
-    compadd $(ls)
+    compadd $(ls -d */ | perl -pe 's|/$||')
     compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
     compadd $(echo /)
-    compadd $(ls /)
-    compadd $(ls $HOME)
+    compadd $(cd /;    ls -d */ | perl -pe 's|/$||')
+    compadd $(cd $HOME;ls -d */ | perl -pe 's|/$||')
     return 0
 }
 
