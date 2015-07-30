@@ -27,6 +27,20 @@ else
         --path|-p)
             cat "$HOME/.b-list" | egrep "^$2" | awk '{ print $2 }'
             ;;
+        --up|-u)
+            _b_path='..'
+            while [ "$(ls "$_b_path" | wc -l)" -eq 1 ]; do
+                _b_path="$_b_path/.."
+            done
+            cd $_b_path
+            ;;
+        --down|-d)
+            _b_path='.'
+            while [ "$(/bin/ls "$_b_path" | wc -l)" -eq 1 ]; do
+                _b_path="$_b_path/$(/bin/ls "$_b_path")"
+            done
+            cd $_b_path
+            ;;
         --help|-h)
             echo "\`b\` is a powerful way to bookmark and cd all at once!"
             echo "If it doesn't seem to work, you MUST use \`. b bookmark-name\` syntax"
@@ -38,6 +52,8 @@ else
             echo "  --list    -l  -- list the bookmarks and where they point"
             echo "  --path    -p  -- display the path of a given bookmark"
             echo "  --remove  -r  -- remove a bookmark"
+            echo "  --up      -u  -- go up the directory tree until reach directory with more than one file/directory"
+            echo "  --down    -d  -- go down the directory tree until reach directory with more than one file/directory"
             echo
             echo "If the above options are not used, it will attempt to jump to the directory given"
             echo "It will search for a directory to jump to in this order:"

@@ -31,6 +31,10 @@ Display the path of a bookmark
     $ b --path bookmark-name
     $ b -p bookmark-name
 
+Go up the directory tree until reach directory with more than one file/directory using `--up` or `-u`
+
+Go down the directory tree until reach directory with more than one file/directory using `--down` or `-d`
+
 Jump to a bookmark (the dot makes it run the script in the current terminal)
 
     $ . b bookmark-name

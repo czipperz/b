@@ -9,6 +9,8 @@ arguments=(
     {--help,-h}'[Get help]'
     {--list,-l}'[List all known bookmarks and where they point]'
     {--path,-p}'[Returns the path of the given bookmark]'
+    {--up,-u}'[Go up the directory tree until reach directory with more than one file/directory]'
+    {--down,-d}'[Go up the directory tree until reach directory with more than one file/directory]'
 )
 _arguments -s $arguments && {
     compadd $(cat $HOME/.b-list | awk '{ print $1 }')
