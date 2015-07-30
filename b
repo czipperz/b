@@ -2,6 +2,7 @@
 
 if (( $# == 0 )); then
     cd
+    pwd
 else
     case "$1" in
         --add|-a)
@@ -150,6 +151,7 @@ else
                     esac
                 done
             fi
+            pwd
             ;;
     esac
 fi
