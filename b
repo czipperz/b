@@ -53,14 +53,14 @@ else
                 _b_cdDone=''
                 _b_call="$1"
                 _b_val=""
-                _b_counter=0
+                _b_counter=bookmark
                 if [ 1 -eq "$(echo "$1" | grep -c '[^\\]/')" ]; then
                     _b_call="$(echo "$1" | perl -pe 's;^(((?<=\\)/|[^/])*).*;$1;')"
                     _b_val="$(echo "$1" | perl -pe  's;^((?<=\\)/|[^/])*/;;')"
                 fi
                 while [ -z "$_b_cdDone" ]; do
                     case $_b_counter in
-                        0)
+                        bookmark)
                             _b_lines="$(cat "$HOME/.b-list" | wc -l)"
                             for (( i=$_b_lines; i >= 1; i-- )); do
                                 _b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
@@ -78,9 +78,9 @@ else
                                     break
                                 fi
                             done
-                            _b_counter=1
+                            _b_counter='upRaw'
                             ;;
-                        1)
+                        upRaw)
                             if [ 1 -eq "$(echo "$_b_call" | egrep -c '^\.\.+$')" ]; then
                                 _b_dirFix="$(echo "$_b_call" | perl -pe 's/^.//' | wc -c)"
                                 for (( _b_index=1; _b_index<$_b_dirFix; _b_index++ )); do
@@ -88,9 +88,9 @@ else
                                 done
                                 _b_cdDone=' '
                             fi
-                            _b_counter=2
+                            _b_counter='raw'
                             ;;
-                        2)
+                        raw)
                             if [ -d "$_b_call" ]; then
                                 if [ -d "$_b_call/$_b_val" ]; then
                                     cd "$_b_call/$_b_val"
@@ -101,9 +101,9 @@ else
                                 fi
                                 _b_cdDone=' '
                             fi
-                            _b_counter=3
+                            _b_counter='upNamed'
                             ;;
-                        3)
+                        upNamed)
                             _b_dest='..'
                             _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
                             for i in {${_b_start}..2}; do
@@ -114,9 +114,9 @@ else
                                 fi
                                 _b_dest="$_b_dest/.."
                             done
-                            _b_counter=4
+                            _b_counter='home'
                             ;;
-                        4)
+                        home)
                             if [ -d "$HOME/$_b_call" ]; then
                                 if [ -d "$HOME/$_b_call/$_b_val" ]; then
                                     cd "$HOME/$_b_call/$_b_val"
@@ -127,9 +127,9 @@ else
                                 fi
                                 _b_cdDone=' '
                             fi
-                            _b_counter=5
+                            _b_counter='slash'
                             ;;
-                        5)
+                        slash)
                             if [ -d "/$_b_call" ]; then
                                 if [ -d "/$_b_call/$_b_val" ]; then
                                     cd "/$_b_call/$_b_val"
@@ -140,9 +140,9 @@ else
                                 fi
                                 _b_cdDone=' '
                             fi
-                            _b_counter=6
+                            _b_counter='nop'
                             ;;
-                        6)
+                        nop)
                             echo -n "Could not find a suitable solution to bounce to"
                             echo " (this has been not been detected as a bookmark, super, or normal cd)."
                             _b_cdDone=' '
