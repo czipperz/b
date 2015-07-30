@@ -107,14 +107,21 @@ else
                         upNamed)
                             _b_dest='..'
                             _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
-                            for i in {${_b_start}..2}; do
-                                if [ "$(pwd | cut -d/ -f$i 2>/dev/null)" = "$1" ]; then
-                                    cd "$_b_dest/$_b_val"
-                                    _b_cdDone=' '
-                                    break
-                                fi
-                                _b_dest="$_b_dest/.."
-                            done
+                            if (( $_b_start != 1 )); then
+                                for i in {${_b_start}..2}; do
+                                    if [ "$(pwd | cut -d/ -f$i 2>/dev/null)" = "$_b_call" ]; then
+                                        cd "../$_b_dest/$_b_call/$_b_val"
+                                        _b_cdDone=' '
+                                        break
+                                    fi
+                                    if [ -d "$_b_dest/$_b_call" ]; then
+                                        cd "$_b_dest/$_b_call/$_b_val"
+                                        _b_cdDone=' '
+                                        break
+                                    fi
+                                    _b_dest="$_b_dest/.."
+                                done
+                            fi
                             _b_counter='home'
                             ;;
                         home)
