@@ -53,47 +53,57 @@ else
                 _b_cdDone=''
                 _b_call="$1"
                 _b_val=""
+                _b_counter=0
                 if [ 1 -eq "$(echo "$1" | grep -c '[^\\]/')" ]; then
                     _b_call="$(echo "$1" | perl -pe 's;^(((?<=\\)/|[^/])*).*;$1;')"
                     _b_val="$(echo "$1" | perl -pe  's;^((?<=\\)/|[^/])*/;;')"
                 fi
-                
-                _b_lines="$(cat "$HOME/.b-list" | wc -l)"
-                for (( i=$_b_lines; i >= 1; i-- )); do
-                    _b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
-                    if [ "$(echo "$_b_line" | awk '{ print $1 }')" = "$_b_call" ]; then
-                        cd "$(echo "$_b_line" | awk '{ print $2 }')"
-                        if [ ! -z "$_b_val" ]; then
-                            if [ -d "$_b_val" ]; then
-                                cd "$_b_val"
-                            else
-                                echo -n "Only the base directory of the bookmark \`$(echo "$_b_line" | awk '{ print $1 }')\`"
-                                echo "was found, will only execute \`cd \"$(echo "$_b_line" | awk '{ print $2 }')\"\`."
+                while [ -z "$_b_cdDone" ]; do
+                    case $_b_counter in
+                        0)
+                            _b_lines="$(cat "$HOME/.b-list" | wc -l)"
+                            for (( i=$_b_lines; i >= 1; i-- )); do
+                                _b_line="$(tail -n $i "$HOME/.b-list" | head -n 1)"
+                                if [ "$(echo "$_b_line" | awk '{ print $1 }')" = "$_b_call" ]; then
+                                    cd "$(echo "$_b_line" | awk '{ print $2 }')"
+                                    if [ ! -z "$_b_val" ]; then
+                                        if [ -d "$_b_val" ]; then
+                                            cd "$_b_val"
+                                        else
+                                            echo -n "Only the base directory of the bookmark \`$(echo "$_b_line" | awk '{ print $1 }')\`"
+                                            echo "was found, will only execute \`cd \"$(echo "$_b_line" | awk '{ print $2 }')\"\`."
+                                        fi
+                                    fi
+                                    _b_cdDone=' '
+                                    break
+                                fi
+                            done
+                            _b_counter=1
+                            ;;
+                        1)
+                            if [ 1 -eq "$(echo "$_b_call" | egrep -c '^\.\.+$')" ]; then
+                                _b_dirFix="$(echo "$_b_call" | perl -pe 's/^.//' | wc -c)"
+                                for (( _b_index=1; _b_index<$_b_dirFix; _b_index++ )); do
+                                    cd ..
+                                done
+                                _b_cdDone=' '
                             fi
-                        fi
-                        _b_cdDone=' '
-                        break
-                    fi
-                done
-                if [ -z "$_b_cdDone" ]; then
-                    if [ 1 -eq "$(echo "$_b_call" | egrep -c '^\.\.+$')" ]; then
-                        _b_dirFix="$(echo "$_b_call" | perl -pe 's/^.//' | wc -c)"
-                        for (( _b_index=1; _b_index<$_b_dirFix; _b_index++ )); do
-                            cd ..
-                        done
-                        _b_cdDone=' '
-                    else
-                        if [ -d "$_b_call" ]; then
-                            if [ -d "$_b_call/$_b_val" ]; then
-                                cd "$_b_call/$_b_val"
-                            else
-                                echo -n "Only the base directory of this raw cd was found,"
-                                echo " will execute \`cd \"$_b_call\"\`"
-                                cd "$_b_call"
+                            _b_counter=2
+                            ;;
+                        2)
+                            if [ -d "$_b_call" ]; then
+                                if [ -d "$_b_call/$_b_val" ]; then
+                                    cd "$_b_call/$_b_val"
+                                else
+                                    echo -n "Only the base directory of this raw cd was found,"
+                                    echo " will execute \`cd \"$_b_call\"\`"
+                                    cd "$_b_call"
+                                fi
+                                _b_cdDone=' '
                             fi
-                            _b_cdDone=' '
-                            
-                        else
+                            _b_counter=3
+                            ;;
+                        3)
                             _b_dest='..'
                             _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
                             for i in {${_b_start}..2}; do
@@ -104,8 +114,9 @@ else
                                 fi
                                 _b_dest="$_b_dest/.."
                             done
-                        fi
-                        if [ -z "$_b_cdDone" ]; then
+                            _b_counter=4
+                            ;;
+                        4)
                             if [ -d "$HOME/$_b_call" ]; then
                                 if [ -d "$HOME/$_b_call/$_b_val" ]; then
                                     cd "$HOME/$_b_call/$_b_val"
@@ -115,7 +126,11 @@ else
                                     cd "$HOME/$_b_call"
                                 fi
                                 _b_cdDone=' '
-                            elif [ -d "/$_b_call" ]; then
+                            fi
+                            _b_counter=5
+                            ;;
+                        5)
+                            if [ -d "/$_b_call" ]; then
                                 if [ -d "/$_b_call/$_b_val" ]; then
                                     cd "/$_b_call/$_b_val"
                                 else
@@ -125,13 +140,15 @@ else
                                 fi
                                 _b_cdDone=' '
                             fi
-                        fi
-                    fi
-                fi
-                if [ -z "$_b_cdDone" ]; then
-                    echo -n "Could not find a suitable solution to bounce to"
-                    echo " (this has been not been detected as a bookmark, super, or normal cd)."
-                fi
+                            _b_counter=6
+                            ;;
+                        6)
+                            echo -n "Could not find a suitable solution to bounce to"
+                            echo " (this has been not been detected as a bookmark, super, or normal cd)."
+                            _b_cdDone=' '
+                            ;;
+                    esac
+                done
             fi
             ;;
     esac
