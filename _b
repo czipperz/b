@@ -16,6 +16,14 @@ _arguments -s $arguments && {
     compadd $(cat $HOME/.b-list | awk '{ print $1 }')
     compadd $(ls -d */ | perl -pe 's|/$||')
     compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
+    local _b_dest='..'
+    local _b_start="$(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g' | wc -l)"
+    if (( $_b_start != 1 )); then
+        for i in {${_b_start}..2}; do
+            compadd $(cd "$_b_dest";ls -d */ | perl -pe 's|/$||')
+            _b_dest="$_b_dest/.."
+        done
+    fi
     compadd $(echo /)
     compadd $(cd /;    ls -d */ | perl -pe 's|/$||')
     compadd $(cd $HOME;ls -d */ | perl -pe 's|/$||')
