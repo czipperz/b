@@ -11,8 +11,10 @@ arguments=(
     {--path,-p}'[Returns the path of the given bookmark]'
     {--up,-u}'[Go up (`..`) until reach directory with more than one file/directory]'
     {--down,-d}'[Go down (`cd`)  until reach directory with more than one file/directory]'
+    ":b:_b"
 )
-_arguments -s $arguments && {
+
+_b() {
     compadd $(cat $HOME/.b-list | awk '{ print $1 }')
     compadd $(ls -d */ | perl -pe 's|/$||')
     compadd $(pwd | perl -pe 's|^/||' | perl -pe 's|/|\n|g')
@@ -29,5 +31,7 @@ _arguments -s $arguments && {
     compadd $(cd $HOME;ls -d */ | perl -pe 's|/$||')
     return 0
 }
+
+_arguments -s $arguments
 
 return 1
