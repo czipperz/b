@@ -32,14 +32,14 @@ else
             while [ "$(ls "$_b_path" | wc -l)" -eq 1 ]; do
                 _b_path="$_b_path/.."
             done
-            cd $_b_path
+            cd "$_b_path"
             ;;
         --down|-d)
             _b_path='.'
             while [ "$(/bin/ls "$_b_path" | wc -l)" -eq 1 ]; do
                 _b_path="$_b_path/$(/bin/ls "$_b_path")"
             done
-            cd $_b_path
+            cd "$_b_path"
             ;;
         --help|-h)
             echo "\`b\` is a powerful way to bookmark and cd all at once!"
@@ -76,7 +76,7 @@ else
                     _b_val="$(echo "$1" | perl -pe  's;^((?<=\\)/|[^/])*/;;')"
                 fi
                 while [ -z "$_b_cdDone" ]; do
-                    case $_b_counter in
+                    case "$_b_counter" in
                         bookmark)
                             _b_lines="$(cat "$HOME/.b-list" | wc -l)"
                             for (( i=$_b_lines; i >= 1; i-- )); do
