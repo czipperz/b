@@ -1,10 +1,10 @@
-#b
+# b
 
 `b` is a powerful way to bookmark and cd all at once!
 
 Installation is at the end. Hit `<END>` to get there fast
 
-##Usage
+## Usage
 
 Bookmark something using
 
@@ -63,7 +63,7 @@ You could add the following alias to shorten the command
 
     alias b='. b'
 
-##Priorities
+## Priorities
 
 As you have seen above, `b` can do many different things. Here is the order in which it decides what to do:
 
@@ -73,14 +73,20 @@ to the directory specified (if it exists)
 3. It will then resort to bounce to a head directory (like a named `../`)
 4. If none of these work, then it will resort to querying `$HOME` then `/`
 
-##Installation
+## Installation
 
 Clone the repository: `git clone https://github.com/czipperz/b && cd b`
 
 Install: `sudo cp b /usr/bin`
 
-Steps for zsh autocomplete:
+### Steps for zsh autocomplete:
 
 * Make a custom functions directory. If you're running **[Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh)** (you should) then make it in `$HOME/.oh-my-zsh/functions`, otherwise you should install *Oh My Zsh* first then repeat.
 * Copy `_b` to `$HOME/.oh-my-zsh/functions`.
 * Execute `echo 'fpath=( $HOME/.oh-my-zsh/functions $fpath )' >> $HOME/.zshrc`
+
+### Installation on cygwin
+
+b works on cygwin! Just copy the b script from the clone and paste into C:\\cygwin64\bin using Windows Explorer.
+
+The path to the cygwin bin directory may be different on your machine. 
